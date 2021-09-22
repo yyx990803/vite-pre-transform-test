@@ -1,7 +1,10 @@
 // generate a tree of nested modules
 const fs = require('fs')
+
+// layers of nested imports
 const MAX_DEPTH = 3
-const width = 7
+// parallel module imports per layer
+const concurrency = 7
 
 let total = 0
 
@@ -15,7 +18,7 @@ function genFile(id, depth) {
     return
   }
   let content = ''
-  for (let i = 0; i < width; i++) {
+  for (let i = 0; i < concurrency; i++) {
     const childId = `${id}_${i}`
     content += `\nimport './${childId}.ts'`
     genFile(childId, depth + 1)
